@@ -1,64 +1,76 @@
 ---
-title: Huaweicloud
-meta_desc: Provides an overview of the Huaweicloud Provider for Pulumi.
+title: HuaweiCloud
+meta_desc: Provides an overview of the HuaweiCloud Provider for Pulumi.
 layout: overview
 ---
 
-The Checkly provider for Pulumi can be used to provision any of the monitoring resources available in [Checkly](https://checklyhq.com/).
-The Checkly provider must be configured with the an `API Key` and also set the target `Account ID` in order to deploy Checkly resources.
+The HuaweiCloud provider for Pulumi can be used to provision any of the monitoring resources available in
+[HuaweiCloud](https://www.huaweicloud.com/). The HuaweiCloud provider must be configured with the `region`,
+`access_key` and `secret_key` in order to deploy HuaweiCloud resources.
 
 ## Example
 
-{{< chooser language "javascript,typescript" >}}
+{{< chooser language "javascript,typescript,go,python" >}}
 
 {{% choosable language javascript %}}
 
 ```javascript
-const checkly = require("@checkly/pulumi")
+const huaweicloud = require("@pulumi/huaweicloud");
 
-new checkly.Check("api-check", {
-  activated: true,
-  frequency: 10,
-  type: "API",
-  request: {
-    method: "GET",
-    url: "https://checklyhq.com",
-  }
-})
-
-new checkly.Check("browser-check", {
-  activated: true,
-  frequency: 10,
-  type: "BROWSER",
-  script: 'console.log("Hello World!")'
-})
+const vpc = new huaweicloud.VPC("my-vpc", {
+    name: "test",
+    cidr: "192.168.0.0/16",
+});
 ```
 
 {{% /choosable %}}
 {{% choosable language typescript %}}
 
 ```typescript
-import * as checkly from "@checkly/pulumi";
+import * as huaweicloud from "@pulumi/huaweicloud";
 
-new checkly.Check( "api-check", {
-  activated: true,
-  frequency: 10,
-  type: "API",
-  request: {
-    method: "GET",
-    url: "https://checklyhq.com",
-  }
-})
+const vpc = new huaweicloud.VPC("my-vpc", {
+    name: "test",
+    cidr: "192.168.0.0/16",
+});
+```
 
-new checkly.Check( "browser-check", {
-  activated: true,
-  frequency: 10,
-  type: "BROWSER",
-  script: 'console.log("Hello World!")'
-})
+{{% /choosable %}}
+{{% choosable language python %}}
+
+```python
+import pulumi_huaweicloud as huaweicloud
+
+vpc = huaweicloud.VPC("my-vpc",
+    name = "test",
+    cidr = "192.168.0.0/16"
+)
+```
+
+{{% /choosable %}}
+{{% choosable language go %}}
+
+```go
+import (
+    huaweicloud "github.com/huaweicloud/pulumi-huaweicloud/sdk/go/huaweicloud"
+    "github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+)
+
+func main() {
+    pulumi.Run(func(ctx *pulumi.Context) error {
+        _, err := huaweicloud.NewVPC(ctx, "my-vpc", &huaweicloud.VPCArgs{
+            Name: pulumi.StringPtr("test"),
+            Cidr: pulumi.String("192.168.0.0/16"),
+        })
+        if err != nil {
+            return err
+        }
+        return nil
+    })
+}
 ```
 
 {{% /choosable %}}
 {{< /chooser >}}
 
-> You could find more complete and detailed examples in the [pulumi-checkly repository](https://github.com/checkly/pulumi-checkly/tree/main/examples)
+> You could find more complete and detailed examples in the [pulumi-huaweicloud repository](https://github.com/huaweicloud/pulumi-huaweicloud/tree/main/examples)
