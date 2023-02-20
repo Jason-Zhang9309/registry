@@ -1,10 +1,6 @@
 {
   "include": [
     {
-      "repoSlug": "checkly/pulumi-checkly",
-      "schemaFile": "provider/cmd/pulumi-resource-checkly/schema.json"
-    },
-    {
       "repoSlug": "huaweicloud/pulumi-huaweicloud",
       "schemaFile": "provider/cmd/pulumi-resource-huaweicloud/schema.json"
     }
